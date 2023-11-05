@@ -1,4 +1,5 @@
 global using ControleServicoAPI.Data;
+using ControleServicoAPI.services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>();
+builder.Services.AddScoped<IControleServico, CadServicoService>();
 
 
 var app = builder.Build();

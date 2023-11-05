@@ -9,6 +9,7 @@ import { NavComponent } from './nav/nav.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EComponent } from './e/e.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     
     ServicoComponent,
          NovoServicoComponent,
-         NavComponent
+         NavComponent,
+         EComponent
   ],
   imports: [
     BrowserModule,
