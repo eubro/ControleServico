@@ -12,9 +12,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>();
 builder.Services.AddScoped<IControleServico, CadServicoService>();
+builder.Services.AddCors(options =>
+
+    options.AddPolicy(name:"CadServicoOrigins", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+    }));
+
+
 
 
 var app = builder.Build();
+app.UseCors("CadServicoOrigins");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

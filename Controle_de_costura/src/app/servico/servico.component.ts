@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Servico } from '../models/servico';
+import { CadServico } from '../models/CadServico';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ServicoComponent implements OnInit{
   public servicoForm: FormGroup;
   titulo = 'Serviços';
-  public servicoSelecionado: Servico;
+  public servicoSelecionado: CadServico;
   public mostrarBotaoEditar: boolean = false;
 
 
@@ -40,11 +40,11 @@ export class ServicoComponent implements OnInit{
   }
   servicoEdit(){
     //this.servicoForm.value;
-    this.servicoForm.patchValue(Servico);
+    this.servicoForm.patchValue(CadServico);
     
     
   }
-  Edit(servico: Servico) {
+  Edit(servico: CadServico) {
     this.servicoSelecionado = servico;
     this.servicoForm.patchValue(servico);
     this.mostrarBotaoEditar = false; 
@@ -52,7 +52,7 @@ export class ServicoComponent implements OnInit{
   }
   
 
-  servicoSelect(servico:Servico){
+  servicoSelect(servico:CadServico){
     this.servicoSelecionado = servico;
     this.servicoForm.patchValue(servico);
     this.mostrarBotaoEditar = true;
@@ -60,7 +60,7 @@ export class ServicoComponent implements OnInit{
   voltar(){
     this.servicoSelecionado = null;
   }
-  excluir(servico: Servico): void {
+  excluir(servico: CadServico): void {
     const index = this.servicos.findIndex(s => s.id === servico.id);
     if (index !== -1) {
       this.servicos.splice(index, 1);

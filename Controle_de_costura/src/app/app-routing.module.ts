@@ -2,6 +2,7 @@ import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ServicoComponent } from './servico/servico.component';
 import { NovoServicoComponent } from './novo-servico/novo-servico.component';
+import { NavComponent } from './nav/nav.component';
 
 
 

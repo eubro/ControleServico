@@ -1,4 +1,4 @@
-export class Servico{
+export class CadServico{
     id: number;
     nome:string;
     valor:number;
