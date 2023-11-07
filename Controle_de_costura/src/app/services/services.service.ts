@@ -14,6 +14,15 @@ export class ServicesService {
   constructor(private http: HttpClient) { }
 
   public getServicos(): Observable<CadServico[]> {
-    return this.http.get<CadServico[]>(`${environment.apiUrl}/${this.url}`);
+    return this.http.get<CadServico[]>
+    (`${environment.apiUrl}/${this.url}`);
+  }
+
+  public addServicos(servico:CadServico):Observable<CadServico[]>{
+    const headers = { 'Content-Type': 'application/json' };
+    return this.http.post<CadServico[]>
+    (`${environment.apiUrl}/${this.url}`, servico, { headers });
+    
+
   }
 }

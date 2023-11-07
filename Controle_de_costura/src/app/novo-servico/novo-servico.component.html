@@ -1,22 +1,22 @@
-<div class="container mt-5">
+<div class="container mt-5" *ngIf="servico" >
   <h1>Cadastro de Serviço</h1>
   <form>
       <div class="mb-3">
           <label for="nome" class="form-label">Nome:</label>
-          <input type="text" class="form-control" id="nome" placeholder="Digite o nome">
+          <input type="text" class="form-control" id="nome" [(ngModel)]="servico.nome" placeholder="Digite o nome">
       </div>
       <div class="mb-3">
           <label for="telefone" class="form-label">Telefone:</label>
-          <input type="tel" class="form-control" id="telefone" placeholder="Digite o telefone">
+          <input type="tel" class="form-control" id="telefone" [(ngModel)]="servico.numero" placeholder="Digite o telefone">
       </div>
       <div class="mb-3">
           <label for="valor" class="form-label">Valor:</label>
-          <input type="number" class="form-control" id="valor" placeholder="Digite o valor">
+          <input type="number" class="form-control" id="valor" [(ngModel)]="servico.valor" placeholder="Digite o valor">
       </div>
       <div class="mb-3">
           <label for="descricao" class="form-label">Descrição:</label>
-          <textarea class="form-control" id="descricao" rows="4" placeholder="Digite a descrição"></textarea>
+          <textarea class="form-control" id="descricao" rows="4" [(ngModel)]="servico.descricao" placeholder="Digite a descrição"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Enviar</button>
+      <button type="submit" class="btn btn-primary" (click)="createServico(servico)" *ngIf="!servico.id" >Enviar</button>
   </form>
 </div>
