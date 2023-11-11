@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, NgZone } from '@angular/core';
 import { CadServico } from '../models/CadServico';
 import { ServicesService } from '../services/services.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-novo-servico',
@@ -8,19 +9,29 @@ import { ServicesService } from '../services/services.service';
   styleUrls: ['./novo-servico.component.css']
 })
 export class NovoServicoComponent implements OnInit {
-  @Input() servico?: CadServico;
-  @Output() servicosUpdated = new EventEmitter<CadServico[]>();
+  @Output() servico: CadServico = new CadServico();
+  formSubmitted: boolean = false;
 
-  constructor(private service: ServicesService){}
+  constructor(private service: ServicesService, private zone: NgZone){}
 
   ngOnInit(): void {
+    this.servico = new CadServico();
       
   }
 
-  createServico(servico: CadServico) {
-    this.service
-      .addServicos(servico)
-      ;
-  }
+  createServico(form: NgForm) {
+    this.formSubmitted = true;
 
+    if (form.valid) {
+      this.service.addServicos(this.servico).subscribe(
+        () => {
+          alert('Serviço adicionado com sucesso!');
+        },
+        (error) => {
+          console.error('Erro ao adicionar serviço:', error);
+        }
+      );
+    }
+  }
 }
+

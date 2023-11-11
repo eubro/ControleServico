@@ -11,7 +11,7 @@ namespace ControleServicoAPI.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Server=DESKTOP-5UM17F6;Database=servicos;Trusted_Connection =true;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Server=DESKTOP-13SPF25;Database=servicos;Trusted_Connection =true;TrustServerCertificate=True");
         }
     }
 }
