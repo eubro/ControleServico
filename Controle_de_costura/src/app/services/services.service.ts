@@ -22,7 +22,13 @@ export class ServicesService {
     const headers = { 'Content-Type': 'application/json' };
     return this.http.post<CadServico[]>
     (`${environment.apiUrl}/${this.url}`, servico, { headers });
-    
+  }
 
+  public editServico(servico:CadServico){
+    return this.http.put<CadServico>(`${environment.apiUrl}/${this.url}/${servico.id}`, servico);
+  }
+
+  public removerServico(id: number){
+    return this.http.delete<void>(`${environment.apiUrl}/${this.url}/${id}`);
   }
 }

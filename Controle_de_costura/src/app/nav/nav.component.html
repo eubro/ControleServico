@@ -25,12 +25,13 @@
             <a class="nav-link" routerLink="servico">Serviço</a>
           </li>
         </ul>
-        <ul class="navbar-nav">
+    
+        <ul class="navbar-nav" dropdown>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Jô
+            <a id="button-basic" dropdownToggle class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" role="button" style="cursor: pointer;" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Menu
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <div id="dropdown-basic" *dropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <a class="dropdown-item" href="#">Perfil</a>
               <a class="dropdown-item" href="#">Sair</a>
             </div>

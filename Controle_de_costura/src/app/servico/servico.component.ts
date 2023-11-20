@@ -19,8 +19,9 @@ export class ServicoComponent implements OnInit{
  servicos$ = new Observable<CadServico[]>();
   
 
-  constructor( private services :ServicesService ){
+  constructor( private services :ServicesService, private fb: FormBuilder  ){
     this.obterServicos();
+    this.criarForm();
   }
 
   ngOnInit(): void {
@@ -29,6 +30,22 @@ export class ServicoComponent implements OnInit{
 
   obterServicos(){
     this.servicos$ = this.services.getServicos();
+
+  }
+
+  criarForm(){
+    this.servicoForm = this.fb.group({
+      nome:['', Validators.required],
+      valor: ['',Validators.required],
+      numero:['',Validators.required],
+      descricao:['',Validators.required,]
+  });
+  }
+
+  editarServico(svc: CadServico){
+    
+
+
   }
 
 

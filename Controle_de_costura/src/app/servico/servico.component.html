@@ -18,9 +18,12 @@
           <td>{{svc.valor}}</td>
           <td>
             <div class="btn-group">
-              
+              <button  class="btn btn-outline-primary">detalhe</button>
+              <button class="btn btn-warning " (click)="editarServico(svc)" >editar</button>
+              <button class="btn btn-danger" >excluir</button>
             </div>
           </td>
+         
         </tr>
       
       </tbody>
