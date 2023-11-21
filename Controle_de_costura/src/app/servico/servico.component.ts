@@ -42,15 +42,44 @@ export class ServicoComponent implements OnInit{
   });
   }
 
-  editarServico(svc: CadServico){
+  selecionarServico(servico: CadServico) {
+    this.servicoSelecionado = servico;
+    this.mostrarBotaoEditar = true;
     
-
-
+    this.servicoForm.patchValue({
+      nome: servico.nome,
+      valor: servico.valor,
+      numero: servico.numero,
+      descricao: servico.descricao,
+    });
   }
 
-
-  voltar(){
-    this.servicoSelecionado = null;
+  iniciarEdicao(servico: CadServico) {
+    this.servicoSelecionado = servico;
+    this.mostrarBotaoEditar = true;
+    this.servicoForm.patchValue({
+      nome: servico.nome,
+      valor: servico.valor,
+      numero: servico.numero,
+      descricao: servico.descricao,
+    });
   }
 
+  atualizarServico() {
+    // Atualizar os dados do serviço selecionado com os valores do formulário
+    this.servicoSelecionado.nome = this.servicoForm.value.nome;
+    this.servicoSelecionado.valor = this.servicoForm.value.valor;
+    this.servicoSelecionado.numero = this.servicoForm.value.numero;
+    this.servicoSelecionado.descricao = this.servicoForm.value.descricao;
+
+    // Chamar o método de edição no serviço
+    this.services.editServico(this.servicoSelecionado).subscribe(() => {
+      // Atualizar a lista de serviços após a edição
+      this.obterServicos();
+      // Limpar o formulário e redefinir a seleção
+      this.servicoForm.reset();
+      this.servicoSelecionado = null;
+      this.mostrarBotaoEditar = false;
+    });
+  }
 }
