@@ -5,7 +5,7 @@
     </div>
 
   <div >
-    <button class="btn btn-outline-danger" >Lista de Serviço</button>
+    <button class="btn btn-outline-danger" (click)="this.servicoSelecionado = null;">Lista de Serviço</button>
   </div>
 </div>
 
@@ -28,10 +28,11 @@
       <label for="FormControlTextarea1">Descrição</label>
       <textarea class="form-control" formControlName="descricao"  rows="3"></textarea>
       <hr>
-      <button class="btn btn-success" [disabled]="!servicoForm.valid" *ngIf="!mostrarBotaoEditar"> Editar </button>
+      <button class="btn btn-success" [disabled]="!servicoForm.valid" *ngIf="mostrarBotaoEditar"> Editar </button>
     </div>
   </form>
 </div>
+
 
 
 <div >
@@ -54,9 +55,9 @@
           <td>{{svc.valor}}</td>
           <td>
             <div class="btn-group">
-              <button  class="btn btn-outline-primary">detalhe</button>
-              <button class="btn btn-warning " (click)="iniciarEdicao(svc)" >editar</button>
-              <button class="btn btn-danger" >excluir</button>
+              <button  class="btn btn-outline-primary" (click)="servicoSelect(svc)">detalhe</button>
+              <button class="btn btn-outline-warning " (click)="iniciarEdicao(svc)" >editar</button>
+              <button class="btn btn-outline-danger"(click)="excluirServico(svc)" >excluir</button>
             </div>
           </td>
          

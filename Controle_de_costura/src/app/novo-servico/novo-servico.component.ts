@@ -26,12 +26,15 @@ export class NovoServicoComponent implements OnInit {
       this.service.addServicos(this.servico).subscribe(
         () => {
           alert('Serviço adicionado com sucesso!');
+          form.reset();
         },
         (error) => {
           console.error('Erro ao adicionar serviço:', error);
         }
+
       );
     }
+    
   }
 }
 

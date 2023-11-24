@@ -13,7 +13,7 @@ export class ServicoComponent implements OnInit{
   public servicoForm: FormGroup;
   titulo = 'Serviços';
   public servicoSelecionado: CadServico;
-  public mostrarBotaoEditar: boolean = false;
+  public mostrarBotaoEditar: boolean = true;
 
  //servicos:CadServico[] = []
  servicos$ = new Observable<CadServico[]>();
@@ -64,6 +64,11 @@ export class ServicoComponent implements OnInit{
       descricao: servico.descricao,
     });
   }
+  servicoSelect(servico:CadServico){
+    this.servicoSelecionado = servico;
+    this.servicoForm.patchValue(servico);
+    this.mostrarBotaoEditar = false;
+  }
 
   atualizarServico() {
     // Atualizar os dados do serviço selecionado com os valores do formulário
@@ -79,7 +84,15 @@ export class ServicoComponent implements OnInit{
       // Limpar o formulário e redefinir a seleção
       this.servicoForm.reset();
       this.servicoSelecionado = null;
-      this.mostrarBotaoEditar = false;
+      this.mostrarBotaoEditar = true;
     });
   }
+  excluirServico(servico: CadServico) {
+    if (servico) {
+      this.services.removerServico(servico.id).subscribe(() => {
+        this.obterServicos();
+      });
+    }
+  }
+  
 }
