@@ -1,6 +1,7 @@
 ﻿using ControleServicoAPI.Models;
 using ControleServicoAPI.services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ControleServicoAPI.Controllers
 {
@@ -45,8 +46,27 @@ namespace ControleServicoAPI.Controllers
             if (result is null)
                 return NotFound("Serviço não encontrado.");
 
+           
+
             return Ok(result);
         }
+
+        [HttpPut("marcarComoConcluido/{id}")]
+        public async Task<IActionResult> MarcarComoConcluido(int id)
+        {
+            var servico = await _controleServico.GetSingleServico(id);
+            if (servico == null)
+                return NotFound("Serviço não encontrado");
+
+            servico.Concluido = true;
+
+            await _controleServico.UpdateServico(id, servico);
+
+            return NoContent();
+        }
+
+
+
         [HttpDelete("{id}")]
         public async Task<ActionResult<List<CadServico>>> DeleteHero(int id)
         {

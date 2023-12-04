@@ -4,6 +4,7 @@ export class CadServico {
     valor: number = 0; 
     numero: string = ""; 
     descricao: string = ""; 
+    concluido: boolean;
   }
   
     

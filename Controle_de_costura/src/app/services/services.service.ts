@@ -28,7 +28,16 @@ export class ServicesService {
     return this.http.put<CadServico>(`${environment.apiUrl}/${this.url}/${servico.id}`, servico);
   }
 
+  
+  
+
   public removerServico(id: number){
     return this.http.delete<void>(`${environment.apiUrl}/${this.url}/${id}`);
   }
+
+  public marcarComoConcluido(id: number) {
+    return this.http.put<CadServico>(`${environment.apiUrl}/${this.url}/marcarComoConcluido/${id}`, null);
+}
+
+  
 }

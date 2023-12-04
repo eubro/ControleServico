@@ -14,6 +14,7 @@ namespace ControleServicoAPI.services
 
         public async Task<List<CadServico>> AddServico(CadServico servico)
         {
+            servico.Concluido = false;
             _dataContext.CadServicos.Add(servico);
             await _dataContext.SaveChangesAsync();
             return await _dataContext.CadServicos.ToListAsync();
@@ -53,14 +54,30 @@ namespace ControleServicoAPI.services
             if(servico == null)
                 return null;
 
-            servico.nome = request.nome;
-            servico.numero = request.numero;
-            servico.valor = request.valor;
-            servico.descricao = request.descricao;
+            servico.Nome = request.Nome;
+            servico.Numero = request.Numero;
+            servico.Valor = request.Valor;
+            servico.Descricao = request.Descricao;
+            servico.Concluido = request.Concluido;
 
             await _dataContext.SaveChangesAsync();
 
             return await _dataContext.CadServicos.ToListAsync();
         }
+
+        public async Task<List<CadServico>> MarcarComoConcluido(int id)
+        {
+            var servico = await _dataContext.CadServicos.FindAsync(id);
+            if (servico == null)
+                return null;
+
+            servico.Concluido = true;
+
+            await _dataContext.SaveChangesAsync();
+
+            return await _dataContext.CadServicos.ToListAsync();
+        }
+
+
     }
 }

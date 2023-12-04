@@ -94,5 +94,22 @@ export class ServicoComponent implements OnInit{
       });
     }
   }
+
+  marcarComoConcluido(servico: CadServico) {
+    if (servico) {
+        // Alterar o estado concluído no objeto localmente
+        servico.concluido = true;
+
+        // Chamar o método no serviço para atualizar o estado no backend
+        this.services.marcarComoConcluido(servico.id).subscribe(() => {
+            // Atualizar a lista de serviços após a conclusão
+            this.obterServicos();
+        });
+    }
+}
+  
+
+  
+  
   
 }

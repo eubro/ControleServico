@@ -47,22 +47,23 @@
           <th scope="col">Opções</th>
         </tr>
       </thead>
-      <tbody >
-        <tr *ngFor="let svc of servicos$ |async" >
-          <th scope="row">{{svc.id}}</th>
-          <td>{{svc.nome}}</td>
-          <td>{{svc.numero}}</td>
-          <td>{{svc.valor}}</td>
-          <td>
-            <div class="btn-group">
-              <button  class="btn btn-outline-primary" (click)="servicoSelect(svc)">detalhe</button>
-              <button class="btn btn-outline-warning " (click)="iniciarEdicao(svc)" >editar</button>
-              <button class="btn btn-outline-danger"(click)="excluirServico(svc)" >excluir</button>
-            </div>
-          </td>
-         
-        </tr>
-      
+      <tbody>
+        <ng-container *ngFor="let svc of servicos$ | async">
+          <tr *ngIf="!svc.concluido">
+            <th scope="row">{{svc.id}}</th>
+            <td>{{svc.nome}}</td>
+            <td>{{svc.numero}}</td>
+            <td>{{svc.valor}}</td>
+            <td>
+              <div class="btn-group">
+                <button class="btn btn-outline-primary" (click)="servicoSelect(svc)">detalhe</button>
+                <button class="btn btn-outline-warning" (click)="iniciarEdicao(svc)">editar</button>
+                <button class="btn btn-outline-danger" (click)="excluirServico(svc)">excluir</button>
+                <button class="btn btn-outline-success" (click)="marcarComoConcluido(svc)">Concluir</button>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
   </div>

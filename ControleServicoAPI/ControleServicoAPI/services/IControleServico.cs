@@ -10,5 +10,6 @@ namespace ControleServicoAPI.services
         Task<List<CadServico>> AddServico(CadServico servico);
         Task<List<CadServico>?> UpdateServico(int id, CadServico request);
         Task<List<CadServico>?> DeleteServico(int id);
+        Task<List<CadServico>> MarcarComoConcluido(int id);
     }
 }
