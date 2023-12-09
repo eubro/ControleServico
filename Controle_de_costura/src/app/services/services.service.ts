@@ -39,5 +39,10 @@ export class ServicesService {
     return this.http.put<CadServico>(`${environment.apiUrl}/${this.url}/marcarComoConcluido/${id}`, null);
 }
 
+public getServicosConcluidos(): Observable<CadServico[]> {
+  return this.http.get<CadServico[]>(`${environment.apiUrl}/${this.url}/concluido`);
+}
+
+
   
 }

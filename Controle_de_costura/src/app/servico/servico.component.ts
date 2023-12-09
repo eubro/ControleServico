@@ -14,6 +14,7 @@ export class ServicoComponent implements OnInit{
   titulo = 'Serviços';
   public servicoSelecionado: CadServico;
   public mostrarBotaoEditar: boolean = true;
+  public isReadOnly: boolean = false;
 
  //servicos:CadServico[] = []
  servicos$ = new Observable<CadServico[]>();
@@ -46,6 +47,7 @@ export class ServicoComponent implements OnInit{
     this.servicoSelecionado = servico;
     this.mostrarBotaoEditar = true;
     
+    
     this.servicoForm.patchValue({
       nome: servico.nome,
       valor: servico.valor,
@@ -68,6 +70,7 @@ export class ServicoComponent implements OnInit{
     this.servicoSelecionado = servico;
     this.servicoForm.patchValue(servico);
     this.mostrarBotaoEditar = false;
+    this.isReadOnly = true;
   }
 
   atualizarServico() {

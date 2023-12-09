@@ -78,6 +78,11 @@ namespace ControleServicoAPI.services
             return await _dataContext.CadServicos.ToListAsync();
         }
 
+        public async Task<List<CadServico>> GetServicosConcluidos()
+        {
+            return await _dataContext.CadServicos.Where(s => s.Concluido).ToListAsync();
+        }
+
 
     }
 }

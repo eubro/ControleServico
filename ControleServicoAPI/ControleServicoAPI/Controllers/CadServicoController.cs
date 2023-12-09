@@ -65,6 +65,12 @@ namespace ControleServicoAPI.Controllers
             return NoContent();
         }
 
+        [HttpGet("concluido")]
+        public async Task<ActionResult<List<CadServico>>> GetServicosConcluidos ()
+        {
+            return await _controleServico.GetServicosConcluidos();
+        }
+
 
 
         [HttpDelete("{id}")]
