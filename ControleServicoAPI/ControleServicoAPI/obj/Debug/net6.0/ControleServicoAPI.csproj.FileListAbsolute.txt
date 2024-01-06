@@ -174,3 +174,4 @@ C:\Users\Automação\Desktop\projetos\ControleServico\ControleServico\ControleSe
 C:\Users\Automação\Desktop\projetos\ControleServico\ControleServico\ControleServicoAPI\ControleServicoAPI\obj\Debug\net6.0\ControleServicoAPI.pdb
 C:\Users\Automação\Desktop\projetos\ControleServico\ControleServico\ControleServicoAPI\ControleServicoAPI\obj\Debug\net6.0\ControleServicoAPI.genruntimeconfig.cache
 C:\Users\Automação\Desktop\projetos\ControleServico\ControleServico\ControleServicoAPI\ControleServicoAPI\obj\Debug\net6.0\ref\ControleServicoAPI.dll
+C:\Users\Automação\Desktop\projetos\ControleServico\ControleServico\ControleServicoAPI\ControleServicoAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

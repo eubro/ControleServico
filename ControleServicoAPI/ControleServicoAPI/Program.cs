@@ -1,5 +1,7 @@
 global using ControleServicoAPI.Data;
+using ControleServicoAPI.Models;
 using ControleServicoAPI.services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,7 +21,25 @@ builder.Services.AddCors(options =>
         policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
     }));
 
+builder.Services.AddIdentityCore<User>(options =>
+{
+    //password configuration
+    options.Password.RequiredLength = 6;
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
 
+    //for email confirmation
+    options.SignIn.RequireConfirmedEmail = true;
+
+})
+    .AddRoles<IdentityRole>()
+    .AddRoleManager<RoleManager<IdentityRole>>()
+    .AddEntityFrameworkStores<DataContext>()
+    .AddSignInmanager<SignInManager<User>>()
+    .AddUserManager<UserManager<User>>()
+    .AddDefaultTokenProviders();
 
 
 var app = builder.Build();

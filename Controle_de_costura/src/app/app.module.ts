@@ -11,7 +11,9 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxMaskModule} from 'ngx-mask';
-import { ServicoConcluidoComponent } from './servico-concluido/servico-concluido.component'
+import { ServicoConcluidoComponent } from './servico-concluido/servico-concluido.component';
+import { LoginComponent } from './pages/login/login.component';
+
 
 
 
@@ -22,6 +24,8 @@ import { ServicoConcluidoComponent } from './servico-concluido/servico-concluido
     NovoServicoComponent,
     NavComponent,
     ServicoConcluidoComponent,
+    LoginComponent,
+    
          
   ],
   imports: [
