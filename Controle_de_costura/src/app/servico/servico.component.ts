@@ -87,7 +87,7 @@ export class ServicoComponent implements OnInit{
       // Limpar o formulário e redefinir a seleção
       this.servicoForm.reset();
       this.servicoSelecionado = null;
-      this.mostrarBotaoEditar = true;
+      
     });
   }
   excluirServico(servico: CadServico) {

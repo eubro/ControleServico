@@ -1,4 +1,5 @@
 global using ControleServicoAPI.Data;
+using ControleServicoAPI.Migrations;
 using ControleServicoAPI.Models;
 using ControleServicoAPI.services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -9,12 +10,6 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<UserContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
-
-builder.Services.AddScoped<JWTService>();
 
 
 // Add services to the container.
@@ -23,10 +18,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<UserContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+
 builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -38,42 +30,30 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
     }));
+   
 
-builder.Services.AddIdentityCore<User>(options =>
+builder.Services.AddAuthentication(x =>
 {
-    //password configuration
-    options.Password.RequiredLength = 6;
-    options.Password.RequireDigit = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-
-    //for email confirmation
-    options.SignIn.RequireConfirmedEmail = true;
-
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-    .AddRoles<IdentityRole>()
-    .AddRoleManager<RoleManager<IdentityRole>>()
-    .AddEntityFrameworkStores<DataContext>()
-    .AddSignInManager<SignInManager<User>>()
-    .AddUserManager<UserManager<User>>()
-    .AddDefaultTokenProviders();
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+    .AddJwtBearer(x=>
     {
-        options.TokenValidationParameters = new TokenValidationParameters
+        x.RequireHttpsMetadata = false;
+        x.SaveToken = true;
+        x.TokenValidationParameters = new TokenValidationParameters
+        
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:key"])),
-            ValidIssuer = builder.Configuration["JWT:Issuer"],
-            ValidateIssuer = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("XuH6vd1ZKYs3T5WqhCsI9ZRdA7bUwFo8LvL3PCGb91tBj4xKyeMR6clgQNoD2ETh")),
+            ValidateIssuer = false,
             ValidateAudience = false
         };
     });
 
 var app = builder.Build();
-app.UseCors("CadServicoOrigins");
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -83,9 +63,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthentication();
+app.UseCors("CadServicoOrigins");
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 

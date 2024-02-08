@@ -3,7 +3,6 @@ import { CadServico } from './models/CadServico';
 import { ServicesService } from './services/services.service';
 
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,8 +15,11 @@ export class AppComponent {
   title = 'Sistema de Costura';
   servico : CadServico[] = [];
   novoServico?: CadServico;
+  
 
   constructor(private cadServicoService: ServicesService ){}
+
+
 
   ngOnInit(): void{
     this.cadServicoService.getServicos().subscribe((result:CadServico[])=>(this.servico = result));

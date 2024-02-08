@@ -7,12 +7,17 @@ import { AppComponent } from './app.component';
 import { ServicoComponent } from './servico/servico.component';
 import { NovoServicoComponent } from './novo-servico/novo-servico.component';
 import { NavComponent } from './nav/nav.component';
+import { LoginComponent } from './login/login.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxMaskModule} from 'ngx-mask';
 import { ServicoConcluidoComponent } from './servico-concluido/servico-concluido.component';
-import { LoginComponent } from './pages/login/login.component';
+import { RegistroComponent } from './registro/registro.component';
+import { NgToastModule } from 'ng-angular-popup';
+
+
+
 
 
 
@@ -25,6 +30,8 @@ import { LoginComponent } from './pages/login/login.component';
     NavComponent,
     ServicoConcluidoComponent,
     LoginComponent,
+    RegistroComponent
+    
     
          
   ],
@@ -36,7 +43,8 @@ import { LoginComponent } from './pages/login/login.component';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    NgToastModule
     
   ],
   providers: [],
