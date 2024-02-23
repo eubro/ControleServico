@@ -17,7 +17,7 @@
         <ul class="navbar-nav mx-auto">
           
           <li class="nav-item">
-            <a class="nav-link" routerLink="novo-servico">Novo Serviço</a>
+            <a class="nav-link" href="novo-servico">Novo Serviço</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="servico">Serviço</a>
@@ -34,7 +34,7 @@
             </a>
             <div id="dropdown-basic" *dropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <a class="dropdown-item" href="#">Perfil</a>
-              <a class="dropdown-item" href="#">Sair</a>
+              <a class="dropdown-item" (click)="logout()">Sair</a>
             </div>
           </li>
         </ul>

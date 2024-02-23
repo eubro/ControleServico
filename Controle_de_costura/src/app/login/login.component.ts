@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ValidateForm from '../helpers/validateForm';
 import { NgToastService } from 'ng-angular-popup';
+import { UserStoreService } from '../services/user-store.service';
 
 
 
@@ -19,15 +20,17 @@ export class LoginComponent {
   isText: boolean = false;
   eyeIcon : string = "fa-eye-slash"
   loginForm!: FormGroup;
+  public resetPasswordEmail!: string;
+  public isValidEmail!:boolean;
  
 
-  constructor(private fb: FormBuilder, private auth : AuthenticationService, private router : Router, private toast:NgToastService){}
+  constructor(private fb: FormBuilder, private auth : AuthenticationService, private router : Router, private toast:NgToastService, private userStore: UserStoreService){}
   
-ngOnInit():void{
+ngOnInit(){
   this.loginForm = this.fb.group({
     username: ['',Validators.required],
     password: ['', Validators.required]
-  })
+  });
 
 }
 
@@ -44,8 +47,13 @@ onLogin(){
     this.auth.login(this.loginForm.value).subscribe({
       next:(res)=>{
         this.loginForm.reset();
-        this.toast.success({detail:"Success", summary:res.message,duration:5000});
-        this.router.navigate(['nav'])
+        this.auth.storeToken(res.accessToken);
+          this.auth.storeRefreshToken(res.refreshToken);
+          const tokenPayload = this.auth.decodedToken();
+          this.userStore.setFullNameForStore(tokenPayload.name);
+          this.userStore.setRoleForStore(tokenPayload.role);
+          this.toast.success({detail:"SUCCESS", summary:res.message, duration: 5000});
+          this.router.navigate(['dashboard'])
       },
       error:(err)=>{
         
@@ -58,6 +66,13 @@ onLogin(){
   }else{
     ValidateForm.validateAllFormFields(this.loginForm);
   }
+}
+
+checkValidEmail(event: string){
+  const value = event;
+  const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,3}$/;
+  this.isValidEmail = pattern.test(value);
+  return this.isValidEmail;
 }
   
 }

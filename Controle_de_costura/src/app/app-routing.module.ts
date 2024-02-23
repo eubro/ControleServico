@@ -6,18 +6,22 @@ import { ServicoConcluidoComponent } from './servico-concluido/servico-concluido
 import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
 import { NavComponent } from './nav/nav.component';
+import { AuthGuard } from './guards/auth.guard';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 
 
 const routes: Routes = [
 
+  {path: '', redirectTo:'/login', pathMatch:'full' },
   {path: 'login', component: LoginComponent },
-  {path:'nav', component: NavComponent},
-  {path: 'registro', component: RegistroComponent },
-  {path: 'servico', component: ServicoComponent},
-  {path: 'novo-servico', component: NovoServicoComponent},
-  {path: 'concluido', component: ServicoConcluidoComponent}
+  {path:'dashboard', component:DashboardComponent, canActivate:[AuthGuard]},
+  {path:'nav', component: NavComponent, /*canActivate:[AuthGuard]*/},
+  {path: 'registro', component: RegistroComponent},
+  {path: 'servico', component: ServicoComponent,canActivate:[AuthGuard]},
+  {path: 'novo-servico', component: NovoServicoComponent,canActivate:[AuthGuard]},
+  {path: 'concluido', component: ServicoConcluidoComponent,canActivate:[AuthGuard]}
 ];
 
 @NgModule({

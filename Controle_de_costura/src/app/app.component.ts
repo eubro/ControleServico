@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { CadServico } from './models/CadServico';
-import { ServicesService } from './services/services.service';
+
 
 
 @Component({
@@ -13,23 +12,5 @@ import { ServicesService } from './services/services.service';
 
 export class AppComponent {
   title = 'Sistema de Costura';
-  servico : CadServico[] = [];
-  novoServico?: CadServico;
-  
-
-  constructor(private cadServicoService: ServicesService ){}
-
-
-
-  ngOnInit(): void{
-    this.cadServicoService.getServicos().subscribe((result:CadServico[])=>(this.servico = result));
-    
-  }
-
-  initNewServico(){
-    this.novoServico = new CadServico();
-  }
-
-  
 
 }

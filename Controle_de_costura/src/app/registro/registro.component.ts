@@ -4,6 +4,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ValidateForm from '../helpers/validateForm';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-registro',
@@ -17,7 +18,7 @@ export class RegistroComponent {
   signUpForm!: FormGroup;
 
 
-  constructor(private auth: AuthenticationService, private fb : FormBuilder, private router: Router){}
+  constructor(private auth: AuthenticationService, private fb : FormBuilder, private router: Router, private toast:NgToastService){}
 
   ngOnInit():void{
     this.signUpForm = this.fb.group({
@@ -42,6 +43,7 @@ export class RegistroComponent {
       this.auth.register(this.signUpForm.value).subscribe({
         next:(res=>{
           alert(res.message);
+          this.toast.success({detail:"Success", summary:res.message,duration:5000});
           this.signUpForm.reset();
           this.router.navigate(['login']);
       }),

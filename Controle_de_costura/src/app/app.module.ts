@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +15,9 @@ import {NgxMaskModule} from 'ngx-mask';
 import { ServicoConcluidoComponent } from './servico-concluido/servico-concluido.component';
 import { RegistroComponent } from './registro/registro.component';
 import { NgToastModule } from 'ng-angular-popup';
+import { TokenInterceptor } from './interceptors/token.interceptor';
+import { DashboardComponent } from './dashboard/dashboard.component';
+
 
 
 
@@ -30,7 +33,8 @@ import { NgToastModule } from 'ng-angular-popup';
     NavComponent,
     ServicoConcluidoComponent,
     LoginComponent,
-    RegistroComponent
+    RegistroComponent,
+    DashboardComponent
     
     
          
@@ -44,10 +48,15 @@ import { NgToastModule } from 'ng-angular-popup';
     HttpClientModule,
     FormsModule,
     NgxMaskModule.forRoot(),
-    NgToastModule
+    NgToastModule,
+    
     
   ],
-  providers: [],
+  providers: [{
+    provide:HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi:true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
