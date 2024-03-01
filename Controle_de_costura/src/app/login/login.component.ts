@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ValidateForm from '../helpers/validateForm';
 import { NgToastService } from 'ng-angular-popup';
 import { UserStoreService } from '../services/user-store.service';
+import { ResetPasswordService } from '../services/reset-password.service';
 
 
 
@@ -24,7 +25,8 @@ export class LoginComponent {
   public isValidEmail!:boolean;
  
 
-  constructor(private fb: FormBuilder, private auth : AuthenticationService, private router : Router, private toast:NgToastService, private userStore: UserStoreService){}
+  constructor(private fb: FormBuilder, private auth : AuthenticationService, private router : Router, 
+    private toast:NgToastService, private userStore: UserStoreService, private resetService : ResetPasswordService){}
   
 ngOnInit(){
   this.loginForm = this.fb.group({
@@ -73,6 +75,33 @@ checkValidEmail(event: string){
   const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,3}$/;
   this.isValidEmail = pattern.test(value);
   return this.isValidEmail;
+}
+
+ConfirmToSend(){
+  if(this.checkValidEmail(this.resetPasswordEmail)){
+    console.log(this.resetPasswordEmail);
+    
+
+    this.resetService.sendResetPasswordLink(this.resetPasswordEmail).subscribe({
+      next:(res)=>{
+        this.toast.success({
+          detail:'Success',
+          summary:'Email enviado!',
+          duration:5000,
+        });
+        this.resetPasswordEmail="";
+        const buttonRef = document.getElementById("closeBtn");
+        buttonRef?.click();
+      },
+      error:(err)=>{
+        this.toast.error({
+          detail: 'ERROR',
+          summary:'Algo está errado',
+          duration: 5000,
+        });
+      }
+    })
+  }
 }
   
 }

@@ -1,6 +1,7 @@
 ﻿using ControleServicoAPI.Helpers;
 using ControleServicoAPI.Models;
 using ControleServicoAPI.Models.Dto;
+using ControleServicoAPI.UtilityService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,10 +20,14 @@ namespace ControleServicoAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly DataContext _dataContext;
+        private readonly IConfiguration _configuration;
+        private readonly IEmailService _emailService;
 
-        public UserController(DataContext dataContext)
+        public UserController(DataContext dataContext, IConfiguration configuration, IEmailService emailService)
         {
             _dataContext = dataContext;
+            _configuration = configuration;
+            _emailService = emailService;
         }
 
         [HttpPost("login")]
@@ -195,6 +200,65 @@ namespace ControleServicoAPI.Controllers
             {
                 AccessToken = newAccessToken,
                 RefreshToken = newRefreshToken,
+            });
+        }
+        [HttpPost("send-reset-email/{email}")]
+        public async Task<IActionResult> SendEmail(string email)
+        {
+            var user = await _dataContext.Users.FirstOrDefaultAsync(a=> a.Email == email);
+            if (user is null)
+            {
+                return NotFound(new
+                {
+                    StatusCode = 404,
+                    Message = "email não existe"
+                });
+            }
+            var tokenBytes = RandomNumberGenerator.GetBytes(64);
+            var emailToken = Convert.ToBase64String(tokenBytes);
+            user.ResetPasswordToken = emailToken;
+            user.ResetPasswordExpiry = DateTime.Now.AddMinutes(15);
+            string from = _configuration["EmailSettings:From"];
+            var emailModel = new EmailModel(email, "Redefina a senha!", EmailBody.EmailStringBody(email, emailToken));
+            _emailService.SendEmail(emailModel);
+            _dataContext.Entry(user).State = EntityState.Modified;
+            await _dataContext.SaveChangesAsync();
+            return Ok(new
+            {
+                StatusCode = 200,
+                Message = "Email enviado!"
+            });
+        }
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
+        {
+            var newToken = resetPasswordDto.Emailtoken.Replace("", "+");
+            var user = await _dataContext.Users.AsNoTracking().FirstOrDefaultAsync(a => a.Email == resetPasswordDto.Email);
+            if (user is null)
+            {
+                return NotFound(new
+                {
+                    StatusCode = 404,
+                    Message = "Usuário não existe"
+                });
+            }
+            var tokenCode = user.ResetPasswordToken;
+            DateTime emailtokenExpiry = user.ResetPasswordExpiry;
+            if(tokenCode != resetPasswordDto.Emailtoken || emailtokenExpiry < DateTime.Now)
+            {
+                return BadRequest(new
+                {
+                    StatusCode = 400,
+                    Message = "Inválido link de redefinição"
+                });
+            }
+            user.Password = PasswordHasher.HashPassword(resetPasswordDto.NewPassword);
+            _dataContext.Entry(user).State = EntityState.Modified;
+            await _dataContext.SaveChangesAsync();
+            return Ok(new
+            {
+                StatusCode = 200,
+                Message = "Senha redefinida com sucesso"
             });
         }
     }

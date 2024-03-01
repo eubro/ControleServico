@@ -8,6 +8,7 @@ import { RegistroComponent } from './registro/registro.component';
 import { NavComponent } from './nav/nav.component';
 import { AuthGuard } from './guards/auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ResetComponent } from './reset/reset.component';
 
 
 
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path: 'registro', component: RegistroComponent},
   {path: 'servico', component: ServicoComponent,canActivate:[AuthGuard]},
   {path: 'novo-servico', component: NovoServicoComponent,canActivate:[AuthGuard]},
-  {path: 'concluido', component: ServicoConcluidoComponent,canActivate:[AuthGuard]}
+  {path: 'concluido', component: ServicoConcluidoComponent,canActivate:[AuthGuard]},
+  {path:'reset', component:ResetComponent}
 ];
 
 @NgModule({

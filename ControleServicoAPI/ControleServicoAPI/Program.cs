@@ -2,6 +2,7 @@ global using ControleServicoAPI.Data;
 using ControleServicoAPI.Migrations;
 using ControleServicoAPI.Models;
 using ControleServicoAPI.services;
+using ControleServicoAPI.UtilityService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,7 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddScoped<IControleServico, CadServicoService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddCors(options =>
 
     options.AddPolicy(name:"CadServicoOrigins", policy =>
