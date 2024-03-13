@@ -16,8 +16,9 @@ import { ServicoConcluidoComponent } from './servico-concluido/servico-concluido
 import { RegistroComponent } from './registro/registro.component';
 import { NgToastModule } from 'ng-angular-popup';
 import { TokenInterceptor } from './interceptors/token.interceptor';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import {  sideBarComponent } from './sidebar/sideBar.component';
 import { ResetComponent } from './reset/reset.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 
@@ -27,7 +28,7 @@ import { ResetComponent } from './reset/reset.component';
 
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,  
     ServicoComponent,
     NovoServicoComponent,
@@ -36,11 +37,9 @@ import { ResetComponent } from './reset/reset.component';
     LoginComponent,
     RegistroComponent,
     DashboardComponent,
-    ResetComponent
-    
-    
-         
-  ],
+    ResetComponent,
+    sideBarComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
