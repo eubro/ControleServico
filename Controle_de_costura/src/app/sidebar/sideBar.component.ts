@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class sideBarComponent /*implements OnInit*/ {
+export class sideBarComponent implements OnInit {
 
   public users:any = [];
   public role!:string;
