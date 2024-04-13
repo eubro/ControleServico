@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://localhost:7098/api'
+    apiUrl: 'https://controle-servico-azpq.vercel.app/'
 };
