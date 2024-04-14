@@ -30,7 +30,7 @@ builder.Services.AddCors(options =>
 
     options.AddPolicy(name:"CadServicoOrigins", policy =>
     {
-        policy.WithOrigins("https://controle-servico-ui.vercel.app/").AllowAnyMethod().AllowAnyHeader();
+        policy.WithOrigins("https://controle-servico-ui.vercel.app").AllowAnyMethod().AllowAnyHeader();
     }));
    
 
